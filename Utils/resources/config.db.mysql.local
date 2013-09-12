@@ -1,0 +1,5 @@
+host=localhost
+port=3307
+user=root
+password=strings13
+dbname=survey
