@@ -2,6 +2,12 @@ package com.forbes.brian.ltv.functions;
 
 public class Params {
 	final double alpha,beta,r,s;
+	public Params(Params that){
+		this.alpha = that.alpha;
+		this.beta = that.beta;
+		this.r = that.r;
+		this.s = that.s;
+	}
 	private Params(double alpha, double beta, double r, double s) {
 		super();
 		this.alpha = alpha;
@@ -18,6 +24,11 @@ public class Params {
 		public Params build(){
 			return new Params(alpha,beta,r,s);
 		}
+	}
+	@Override
+	public String toString() {
+		return "Params [alpha=" + alpha + ", beta=" + beta + ", r=" + r
+				+ ", s=" + s + "]";
 	}
 	
 	
