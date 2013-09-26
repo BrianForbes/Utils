@@ -9,8 +9,9 @@ public class Hypergeometric {
 	
 	public static double Gauss(double a,double b,double c,double z) throws IllegalArgumentException {
 		if(Math.abs(z) >= 1)
-			throw new IllegalArgumentException("abs(z) must be less than 1.");
-		final double EPS = 1E-12;
+			return Double.NaN;
+		if (a<=0 | b<=0 | c<=0 | z<=0) return Double.NaN;
+		final double EPS = 1E-13;
 		double j = 0;
 		double uj = 1;
 		double y = uj;

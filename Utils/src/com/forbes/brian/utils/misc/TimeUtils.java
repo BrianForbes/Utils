@@ -26,7 +26,13 @@ public class TimeUtils {
 	}
 	
 	public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+	public final static long MILLISECONDS_IN_WEEK = 7 *MILLISECONDS_IN_DAY;
 
+	
+	public static double weekDiff(Date from, Date to) {
+	    return (int)((to.getTime() - from.getTime()) / (double) MILLISECONDS_IN_WEEK);
+	}
+	
 	public static int dayDiff(Date from, Date to) {
 	    return (int)((to.getTime() - from.getTime()) / MILLISECONDS_IN_DAY);
 	}
@@ -34,6 +40,12 @@ public class TimeUtils {
 	
 	public static Timestamp fromYYYYmmDD(String dateStr) throws ParseException{
 		SimpleDateFormat formatter =  new SimpleDateFormat("yyyyMMdd");
+		java.util.Date date0 = formatter.parse(dateStr);
+		return new Timestamp((new java.sql.Date(date0.getTime())).getTime());
+	}
+	
+	public static Timestamp fromYYYY_mm_DD(String dateStr) throws ParseException{
+		SimpleDateFormat formatter =  new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date0 = formatter.parse(dateStr);
 		return new Timestamp((new java.sql.Date(date0.getTime())).getTime());
 	}
@@ -54,14 +66,34 @@ public class TimeUtils {
 	public static int getDayOfMonth(Timestamp ts){
 		return getAttribute(ts,Calendar.DAY_OF_MONTH);
 	}
+	public static int getDayOfWeek(Timestamp ts){
+		return getAttribute(ts,Calendar.DAY_OF_WEEK);
+	}
 	public static int getDayOfYear(Timestamp ts){
 		return getAttribute(ts,Calendar.DAY_OF_YEAR);
+	}
+	public static int getWeekOfYear(Timestamp ts){
+		return getAttribute(ts,Calendar.WEEK_OF_YEAR);
 	}
 	private static int getAttribute(Timestamp ts,int att){
 		long timestamp = ts.getTime();
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(timestamp);
 		return cal.get(att);
+	}
+	
+	public static int getWeekOfYear(Date date){
+		return getWeekOfYear(toTimestamp(date));
+	}
+	public static int getDayOfYear(Date date){
+		return getDayOfYear(toTimestamp(date));
+	}
+	public static int getDayOfWeek(Date date){
+		return getDayOfWeek(toTimestamp(date));
+	}
+	
+	public static Timestamp toTimestamp(Date date){
+		return new Timestamp(date.getTime());
 	}
 	
 	public static Timestamp addDays(Timestamp ts,int days){

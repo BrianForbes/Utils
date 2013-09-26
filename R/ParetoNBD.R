@@ -14,7 +14,7 @@ getDate <- function(str)
 
 loadData <- function()
 {
-	fileName <- "F:/cygwin/home/brian.forbes/workspace/LTV/data/CDNOW_sample.txt"
+	fileName <- "C:/Users/brian.forbes/git/Utils/LTV/data/CDNOW_sample.txt"
 	dat <- read.table(fileName, header=TRUE)
 	dat$date <- getDate(dat$date)
 	dat <- dc.MergeTransactionsOnSameDate(dat)
